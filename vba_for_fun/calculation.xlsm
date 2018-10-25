@@ -1,0 +1,83 @@
+Sub Calculation()
+
+  Dim sht_slea As Worksheet
+  Dim rng As Range
+
+  Set sht_slea = Worksheets(1)
+  Set rng_1 = sht_slea.Range("A2:A290")
+  Set rng_2 = sht_slea.Range("I2:I290")
+  Set rng_3 = sht_slea.Range("J2:J290")
+  
+  Dim fund_sum As Object
+  Set fund_sum = CreateObject("scripting.dictionary")
+  
+  Dim type_sum As Object
+  Set type_sum = CreateObject("scripting.dictionary")
+  
+  Dim country_sum As Object
+  Set country_sum = CreateObject("scripting.dictionary")
+  
+  Count = 2
+  For Each Item In rng_1
+     Set rng_temp1 = sht_slea.Range("G" & Count)
+     Set rng_temp2 = sht_slea.Range("H" & Count)
+    If Count = 2 Then
+       fund_sum.Add Item.Value, rng_temp1 * rng_temp2
+    Else
+      temp = fund_sum(Item.Value)
+      If fund_sum.Exists(Item.Value) = True Then
+        temp = fund_sum(Item.Value)
+        fund_sum(Item.Value) = temp + rng_temp1 * rng_temp2
+      Else
+        fund_sum.Add Item.Value, rng_temp1 * rng_temp2
+      End If
+    End If
+    Count = Count + 1
+  Next Item
+  
+  [A291].Resize(fund_sum.Count, 2) = Application.Transpose(Array(fund_sum.keys, fund_sum.items))
+  
+  Count = 2
+  For Each Item In rng_2
+     Set rng_temp1 = sht_slea.Range("G" & Count)
+     Set rng_temp2 = sht_slea.Range("H" & Count)
+    If Count = 2 Then
+       type_sum.Add Item.Value, rng_temp1 * rng_temp2
+    Else
+      temp = type_sum(Item.Value)
+      If type_sum.Exists(Item.Value) = True Then
+        temp = type_sum(Item.Value)
+        type_sum(Item.Value) = temp + rng_temp1 * rng_temp2
+      Else
+        type_sum.Add Item.Value, rng_temp1 * rng_temp2
+      End If
+    End If
+    Count = Count + 1
+  Next Item
+  
+  [C291].Resize(type_sum.Count, 2) = Application.Transpose(Array(type_sum.keys, type_sum.items))
+  
+  Count = 2
+  For Each Item In rng_3
+     Set rng_temp1 = sht_slea.Range("G" & Count)
+     Set rng_temp2 = sht_slea.Range("H" & Count)
+    If Count = 2 Then
+       country_sum.Add Item.Value, rng_temp1 * rng_temp2
+    Else
+      temp = country_sum(Item.Value)
+      If country_sum.Exists(Item.Value) = True Then
+        temp = country_sum(Item.Value)
+        country_sum(Item.Value) = temp + rng_temp1 * rng_temp2
+      Else
+        country_sum.Add Item.Value, rng_temp1 * rng_temp2
+      End If
+    End If
+    Count = Count + 1
+  Next Item
+  
+  [E291].Resize(country_sum.Count, 2) = Application.Transpose(Array(country_sum.keys, country_sum.items))
+  
+  
+  
+
+End Sub
