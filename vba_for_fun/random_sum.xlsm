@@ -1,0 +1,25 @@
+Private Sub Worksheet_Activate()
+
+  MAX_1 = 1000
+  jump_num = 10
+  Left_num = 0
+  MAX_2 = Int(MAX_1 / jump_num)
+  For j = 1 To jump_num
+    Left_num = 0
+    For i = 1 To MAX_2
+      Random_num = 0
+      If (i = MAX_2) Then
+        Random_num = (MAX_2 - Left_num)
+      Else
+        Random_num = Int(Rnd * (MAX_2 - Left_num))
+      End If
+      Left_num = Random_num + Left_num
+      Cells(MAX_2 * (j - 1) + i, 1) = Random_num / 1000
+    Next i
+  Next j
+    
+End Sub
+
+Private Sub Worksheet_SelectionChange(ByVal Target As Range)
+
+End Sub
