@@ -1,0 +1,37 @@
+Sub Calculation()
+
+
+Dim dataSet(206, 2) As Variant
+Dim column1 As String
+Dim column2 As String
+Dim aimData As Date
+Dim px1 As Double
+Dim px7 As Double
+Dim px30 As Double
+Dim pxAll As Double
+Dim tempSum As Double
+tempSum = 0
+
+aimData = Range("A3").Value
+
+For counter = 1 To 206
+
+  column1 = "C" + CStr(counter + 3)
+  column2 = "D" + CStr(counter + 3)
+  dataSet(counter, 1) = Range(column1).Value
+  dataSet(counter, 2) = Range(column2).Value
+
+Next
+
+For counter = 1 To 206
+ tempSum = dataSet(counter, 2) + tempSum
+
+ If aimData = dataSet(counter, 1) Then
+  px1 = dataSet(counter, 2)
+  pxAll = tempSum
+  
+ End If
+ 
+Next
+
+End Sub
